@@ -1,10 +1,9 @@
 import { Pane } from './module/tweakpane-4.0.1.js';
 
 class EditorGUI {
-    constructor(scene) {
+    constructor() {
       this.gui = new Pane();
       this.guifld = new Map();
-      this.sceneSize = 10;
     }
 
     GetObjectType( object ) {
@@ -29,7 +28,7 @@ class EditorGUI {
     }
 
     addObject( object ){
-        console.log(object)
+        //console.log(object)
         var gType = this.GetObjectType(object)
         var objName = (gType == "Mesh") ? object.geometry.type : object.type
 
@@ -66,7 +65,7 @@ class EditorGUI {
     }
 
     _addFolder( uuid, foldername ) {
-        if (!this.guifld.has(uuid)) {
+        if ( !this.guifld.has(uuid) ) {
             this.guifld.set(uuid , this.gui.addFolder({title:foldername}));
         }
         return this.guifld.get(uuid);

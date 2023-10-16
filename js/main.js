@@ -21,6 +21,14 @@ Animate()
 
 function Init()
 {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    let editorState = false;
+    if(urlParams.has('editor')){
+        editorState = (urlParams.get('editor') == 'true')
+    }
+
     //environment
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 1000 );
     camera.position.z = 5;
@@ -51,22 +59,15 @@ function Init()
     mouse = new THREE.Vector2( 1, 1 );
     raycaster = new THREE.Raycaster();
 
-    //Stats
-    stats = new Stats();
-    document.body.appendChild( stats.dom );
-
-    //Camera controls
-    cameraControl = new OrbitControls( camera, renderer.domElement );
-
     //Add shadow plane
-    let PlaneMeshMaterial = {
+    let MeshMaterial = {
         color: 0xaaaaaa,
         reflectivity: 0.0,
         side: THREE.DoubleSide,
     }
     const plane = new THREE.Mesh(
         new THREE.PlaneGeometry(),
-        new THREE.MeshPhongMaterial( PlaneMeshMaterial ),
+        new THREE.MeshPhongMaterial( MeshMaterial ),
     );
     plane.position.y = -2;
     plane.rotation.x = - Math.PI / 2;
@@ -75,19 +76,32 @@ function Init()
     scene.add( plane );
 
     //Create Object
-    let MeshMaterial = {
+    MeshMaterial = {
         color: 0xffaaff,
         reflectivity: 0.5,
         wireframe: false,
     }    
     //const geometry = new THREE.SphereGeometry( 1, 64, 64 );
     const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    var material = new THREE.MeshPhongMaterial( MeshMaterial );
-    cube = new THREE.Mesh( geometry, material );
+    cube = new THREE.Mesh( geometry,  new THREE.MeshPhongMaterial( MeshMaterial ) );
     cube.castShadow = true;
     scene.add( cube );
 
-    editorGUI = new EditorGUI(scene);
+    //Camera controls
+    cameraControl = new OrbitControls( camera, renderer.domElement );
+
+    if( editorState ) {
+        //Stats
+        stats = new Stats();
+        document.body.appendChild( stats.dom );
+
+        //Editor
+        editorGUI = new EditorGUI();
+    }
+    else {
+        stats = null;
+        editorGUI = null;
+    }
 
     //Add Event Listeners
     document.addEventListener( 'mousemove', onMouseMove )
@@ -98,7 +112,11 @@ function Init()
 }
 
 function DrawSceneEditorUI() {
-
+    if(editorGUI == null){
+        console.log("Editor Disabled")
+        return
+    }
+    
     editorGUI.add( document, 'title', {readonly: true});
     editorGUI.addObject(scene)
 
@@ -122,7 +140,9 @@ function onWindowResize() {
 function Animate() {
     requestAnimationFrame( Animate );
     Render()
-    stats.update()
+    
+    if( stats != null )
+        stats.update()
 }
 
 function Render() {
