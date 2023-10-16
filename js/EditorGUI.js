@@ -37,6 +37,7 @@ class EditorGUI {
             objRoot = this._addFolder(object.uuid, objName)
             var transform = objRoot.addFolder({title:"Transform"})
             transform.addBinding(object, "position", {step: 0.1})
+            transform.addBinding(object, "scale", {step: 0.1})
         }
 
         if(object.geometry){
