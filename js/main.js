@@ -1,7 +1,7 @@
 import * as THREE from './three.module.js';
 import Stats from './module/stats.module.js';
 import WebGL from './module/WebGL.js';
-import { GUI } from "./module/lil-gui.min.js";
+import EditorGUI from "./EditorGUI.js";
 
 if ( WebGL.isWebGLAvailable() == false ) 
 {
@@ -10,9 +10,9 @@ if ( WebGL.isWebGLAvailable() == false )
     window.stop(); 
 }
 
-let stats;
+let stats, editorGUI;
 let camera, scene, renderer;
-let cube;
+let cube, mouse, raycaster;
 
 const MeshMaterial = {
     color: 0xffaaff,
@@ -51,6 +51,10 @@ function Init()
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild( renderer.domElement );
 
+    //Init Mouse
+    mouse = new THREE.Vector2( 1, 1 );
+    raycaster = new THREE.Raycaster();
+
     //Stats
     stats = new Stats();
     document.body.appendChild( stats.dom );
@@ -65,29 +69,42 @@ function Init()
             side: THREE.DoubleSide,
         } ),
     );
-    plane.position.y = - 3;
-    plane.rotation.x = - Math.PI / 2;
+    plane.position.y = -2;
+    //plane.rotation.x = - Math.PI / 2;
     plane.scale.setScalar( 10 );
     plane.receiveShadow = true;
     scene.add( plane );
 
     //Create Object
-    const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    const geometry = new THREE.SphereGeometry( 1, 64, 64 );
     var material = new THREE.MeshPhongMaterial( MeshMaterial );
     cube = new THREE.Mesh( geometry, material );
     cube.castShadow = true;
     scene.add( cube );
 
-    const gui = new GUI();
-    gui.add( document, 'title' );
-    //gui.addColor(scene.background);
-    const modelfld = gui.addFolder( 'Model' );
-    modelfld.addColor( cube.material, 'color' );
-    modelfld.add( cube.material, 'reflectivity', 0, 1, 0.1 );
-    modelfld.add( cube.material, 'wireframe' );
-
+    editorGUI = new EditorGUI(scene);
+    //Add Event Listeners
+    document.addEventListener( 'mousemove', onMouseMove )
     window.addEventListener('resize', onWindowResize, false)
+
     onWindowResize()
+    DrawSceneEditorUI()
+}
+
+function DrawSceneEditorUI() {
+
+    editorGUI.add( document, 'title', {readonly: true});
+    editorGUI.addObject(scene)
+
+    for( var idx in scene.children ){
+        editorGUI.addObject(scene.children[idx])
+    }
+}
+
+function onMouseMove( event ) {
+    event.preventDefault();
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 }
 
 function onWindowResize() {
@@ -105,6 +122,12 @@ function Animate() {
 function Render() {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
+
+    raycaster.setFromCamera( mouse, camera );
+    //const intersection = raycaster.intersectObject( cube );
+    //if ( intersection.length > 0 ) {
+    //    intersection[0].object.material.color.set(1, 0, 0.5);
+    //}
 
     renderer.render(scene, camera)
 }
