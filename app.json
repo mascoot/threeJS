@@ -1,0 +1,232 @@
+{
+	"metadata": {
+		"type": "App"
+	},
+	"project": {
+		"shadows": true,
+		"shadowType": 1,
+		"vr": false,
+		"toneMapping": 0,
+		"toneMappingExposure": 1
+	},
+	"camera": {
+		"metadata": {
+			"version": 4.6,
+			"type": "Object",
+			"generator": "Object3D.toJSON"
+		},
+		"object": {
+			"uuid": "4b79804d-c777-4dc6-8e90-fce00d82a07f",
+			"type": "PerspectiveCamera",
+			"name": "Camera",
+			"layers": 1,
+			"matrix": [0.6745820980702166,-8.326675261368812e-17,-0.7382002518701717,0,-0.461205141024232,0.7808087291375064,-0.42145844692506795,0,0.5763933076286645,0.6247701907513216,0.5267196885787021,0,15.075875584294844,14.075288752541537,11.6081691142586,1],
+			"up": [0,1,0],
+			"fov": 50,
+			"zoom": 1,
+			"near": 0.1,
+			"far": 100000,
+			"focus": 10,
+			"aspect": 1.817829457364341,
+			"filmGauge": 35,
+			"filmOffset": 0
+		}
+	},
+	"scene": {
+		"metadata": {
+			"version": 4.6,
+			"type": "Object",
+			"generator": "Object3D.toJSON"
+		},
+		"geometries": [
+			{
+				"uuid": "C3C0CE7D-10B8-43FC-8F74-011CC6E57800",
+				"type": "PlaneGeometry",
+				"width": 100,
+				"height": 100,
+				"widthSegments": 1,
+				"heightSegments": 1
+			},
+			{
+				"uuid": "f668a024-3a3a-43eb-997d-6141e045fb73",
+				"type": "SphereGeometry",
+				"radius": 1,
+				"widthSegments": 32,
+				"heightSegments": 16,
+				"phiStart": 0,
+				"phiLength": 6.283185307179586,
+				"thetaStart": 0,
+				"thetaLength": 3.141592653589793
+			}],
+		"materials": [
+			{
+				"uuid": "3A9449D2-62DB-4BB4-ABBD-6F3F9D46DE1A",
+				"type": "MeshStandardMaterial",
+				"color": 5465019,
+				"roughness": 1,
+				"metalness": 0,
+				"emissive": 0,
+				"envMapIntensity": 1,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true,
+				"colorWrite": true,
+				"stencilWrite": false,
+				"stencilWriteMask": 255,
+				"stencilFunc": 519,
+				"stencilRef": 0,
+				"stencilFuncMask": 255,
+				"stencilFail": 7680,
+				"stencilZFail": 7680,
+				"stencilZPass": 7680
+			},
+			{
+				"uuid": "F5361474-F5F1-412F-8D99-3699B868092D",
+				"type": "SpriteMaterial",
+				"color": 16777215,
+				"sizeAttenuation": true,
+				"transparent": true,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true,
+				"colorWrite": true,
+				"stencilWrite": false,
+				"stencilWriteMask": 255,
+				"stencilFunc": 519,
+				"stencilRef": 0,
+				"stencilFuncMask": 255,
+				"stencilFail": 7680,
+				"stencilZFail": 7680,
+				"stencilZPass": 7680
+			},
+			{
+				"uuid": "dc14f99c-9b9c-4af8-8ddf-2f010d9f7fbc",
+				"type": "MeshStandardMaterial",
+				"color": 16777215,
+				"roughness": 1,
+				"metalness": 0,
+				"emissive": 0,
+				"envMapIntensity": 1,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true,
+				"colorWrite": true,
+				"stencilWrite": false,
+				"stencilWriteMask": 255,
+				"stencilFunc": 519,
+				"stencilRef": 0,
+				"stencilFuncMask": 255,
+				"stencilFail": 7680,
+				"stencilZFail": 7680,
+				"stencilZPass": 7680
+			}],
+		"object": {
+			"uuid": "3741222A-BD8F-401C-A5D2-5A907E891896",
+			"type": "Scene",
+			"name": "Scene",
+			"layers": 1,
+			"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+			"up": [0,1,0],
+			"background": 2171689,
+			"children": [
+				{
+					"uuid": "05B57416-1BE5-4A96-BB05-9D9CD112D52B",
+					"type": "Mesh",
+					"name": "Ground",
+					"layers": 1,
+					"matrix": [1,0,0,0,0,0.0007959999999995675,-1,0,0,1,0.0007959999999995675,0,0,-0.5,0,1],
+					"up": [0,1,0],
+					"geometry": "C3C0CE7D-10B8-43FC-8F74-011CC6E57800",
+					"material": "3A9449D2-62DB-4BB4-ABBD-6F3F9D46DE1A"
+				},
+				{
+					"uuid": "0A3CB873-07E6-4EEB-830B-68192504111B",
+					"type": "Sprite",
+					"name": "Particle",
+					"layers": 1,
+					"matrix": [0.04,0,0,0,0,0.04,0,0,0,0,0.04,0,0,0,0,1],
+					"up": [0,1,0],
+					"material": "F5361474-F5F1-412F-8D99-3699B868092D"
+				},
+				{
+					"uuid": "40E5CDA4-0E39-4265-9293-3E9EC3207F61",
+					"type": "PointLight",
+					"name": "PointLight",
+					"layers": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,1.183,0,1],
+					"up": [0,1,0],
+					"color": 16777215,
+					"intensity": 1,
+					"distance": 0,
+					"decay": 1,
+					"shadow": {
+						"camera": {
+							"uuid": "B6D3493E-E5C9-4D65-9E26-BB788D127BE1",
+							"type": "PerspectiveCamera",
+							"layers": 1,
+							"up": [0,1,0],
+							"fov": 90,
+							"zoom": 1,
+							"near": 0.5,
+							"far": 500,
+							"focus": 10,
+							"aspect": 1,
+							"filmGauge": 35,
+							"filmOffset": 0
+						}
+					}
+				},
+				{
+					"uuid": "10a1d03e-ccf4-46fe-b83a-4938ce0df65e",
+					"type": "Mesh",
+					"name": "Sphere",
+					"layers": 1,
+					"matrix": [0.4894468173091127,0,0,0,0,0.4894468173091127,0,0,0,0,0.4894468173091127,0,-0.16194949282978355,1.1858689634214508,-3.487415417815639,1],
+					"up": [0,1,0],
+					"geometry": "f668a024-3a3a-43eb-997d-6141e045fb73",
+					"material": "dc14f99c-9b9c-4af8-8ddf-2f010d9f7fbc"
+				},
+				{
+					"uuid": "d647560e-6132-4ded-921d-23d9f5761f9c",
+					"type": "HemisphereLight",
+					"name": "HemisphereLight",
+					"layers": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,10,0,1],
+					"up": [0,1,0],
+					"color": 43775,
+					"intensity": 1,
+					"groundColor": 16755200
+				},
+				{
+					"uuid": "013ba40a-fe2f-44ac-93d0-441fc9cc4b79",
+					"type": "PerspectiveCamera",
+					"name": "PerspectiveCamera",
+					"layers": 1,
+					"matrix": [0.7812907593628812,-0.04668317271388464,-0.6224190153903866,0,-0.33470101266026053,0.8103689937635132,-0.48091301299809647,0,0.526839616447329,0.5840571678629386,0.6175089013200981,0,6.057557883840265,7.970756959998878,5.547312274738362,1],
+					"up": [0,1,0],
+					"fov": 50,
+					"zoom": 1,
+					"near": 0.1,
+					"far": 2000,
+					"focus": 10,
+					"aspect": 1,
+					"filmGauge": 35,
+					"filmOffset": 0
+				}],
+			"fog": {
+				"type": "Fog",
+				"color": 2171688,
+				"near": 1,
+				"far": 50
+			}
+		}
+	},
+	"scripts": {
+		"3741222A-BD8F-401C-A5D2-5A907E891896": [
+			{
+				"name": "Fountain",
+				"source": "var original = this.getObjectByName( 'Particle' );\n\nvar particles = [];\n\nfor ( var i = 0; i < 100; i ++ ) {\n\n\tvar particle = original.clone();\n\tparticle.userData.velocity = new THREE.Vector3();\n\tthis.add( particle );\n\n\tparticles.push( particle );\n\n}\n\nfunction update( event ) {\n\t\n\tvar particle = particles.shift();\n\tparticles.push( particle );\n\t\t\n\tvar velocity = particle.userData.velocity;\n\tvelocity.x = Math.random() * 0.1 - 0.05;\n\tvelocity.y = Math.random() * 0.1 + 0.1;\n\tvelocity.z = Math.random() * 0.1 - 0.05;\n\n\tfor ( var i = 0; i < particles.length; i ++ ) {\n\n\t\tvar particle = particles[ i ];\n\n\t\tvar velocity = particle.userData.velocity;\n\n\t\tvelocity.y -= 0.0098;\n\n\t\tparticle.position.add( velocity );\n\n\t\tif ( particle.position.y < 0 ) {\n\n\t\t\tparticle.position.y = 0;\n\n\t\t\tvelocity.y = - velocity.y;\n\t\t\tvelocity.multiplyScalar( 0.6 );\n\n\t\t}\n\n\t}\n\n}"
+			}]
+	},
+	"environment": null
+}
