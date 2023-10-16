@@ -39,6 +39,7 @@ class EditorGUI {
             var transform = objRoot.addFolder({title:"Transform"})
             transform.addBinding(object, "position", {step: 0.1})
         }
+
         if(object.geometry){
             var mesh = objRoot.addFolder({title:"Geometry"})
             mesh.addBinding(object.geometry, "type", {readonly: true})
@@ -64,7 +65,6 @@ class EditorGUI {
         }
     }
 
-    
     _addFolder( uuid, foldername ) {
         if (!this.guifld.has(uuid)) {
             this.guifld.set(uuid , this.gui.addFolder({title:foldername}));
@@ -77,13 +77,14 @@ class EditorGUI {
             color: {r:color.r, g:color.g, b:color.b}
         }
         pane.addBinding(PARAMS, "color", {color: {type: 'float'}})
-        pane.on('change', (ev) => {
-            if(ev.value.r && ev.value.g && ev.value.b){
-                color.r = ev.value.r
-                color.g = ev.value.g
-                color.b = ev.value.b
-            }
-          })
+            .on('change', (ev) => {
+                console.log(ev)
+                if(ev.value.r && ev.value.g && ev.value.b) {
+                    color.r = ev.value.r
+                    color.g = ev.value.g
+                    color.b = ev.value.b
+                }
+            })
     }
 }
 

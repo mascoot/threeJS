@@ -1,7 +1,8 @@
-import * as THREE from './three.module.js';
+import * as THREE from './module/three.module.js';
 import Stats from './module/stats.module.js';
 import WebGL from './module/WebGL.js';
 import EditorGUI from "./EditorGUI.js";
+import OrbitControls from "./module/OrbitControls.js";
 
 if ( WebGL.isWebGLAvailable() == false ) 
 {
@@ -13,12 +14,7 @@ if ( WebGL.isWebGLAvailable() == false )
 let stats, editorGUI;
 let camera, scene, renderer;
 let cube, mouse, raycaster;
-
-const MeshMaterial = {
-    color: 0xffaaff,
-    reflectivity: 0.5,
-    wireframe: false,
-}
+let cameraControl;
 
 Init()
 Animate()
@@ -26,11 +22,11 @@ Animate()
 function Init()
 {
     //environment
-    camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 1000 );
     camera.position.z = 5;
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0xfce4ec );
+    scene.background = new THREE.Color( 0x000000 );
 
     //lights
     const ambient = new THREE.HemisphereLight( 0xffffff, 0xbfd4d2, 3 );
@@ -59,24 +55,32 @@ function Init()
     stats = new Stats();
     document.body.appendChild( stats.dom );
 
+    //Camera controls
+    cameraControl = new OrbitControls( camera, renderer.domElement );
+
     //Add shadow plane
+    let PlaneMeshMaterial = {
+        color: 0xaaaaaa,
+        reflectivity: 0.0,
+    }
     const plane = new THREE.Mesh(
         new THREE.PlaneGeometry(),
-        new THREE.ShadowMaterial( {
-            color: 0xd81b60,
-            transparent: true,
-            opacity: 0.075,
-            side: THREE.DoubleSide,
-        } ),
+        new THREE.MeshPhongMaterial( PlaneMeshMaterial ),
     );
     plane.position.y = -2;
-    //plane.rotation.x = - Math.PI / 2;
+    plane.rotation.x = - Math.PI / 2;
     plane.scale.setScalar( 10 );
     plane.receiveShadow = true;
     scene.add( plane );
 
     //Create Object
-    const geometry = new THREE.SphereGeometry( 1, 64, 64 );
+    let MeshMaterial = {
+        color: 0xffaaff,
+        reflectivity: 0.5,
+        wireframe: false,
+    }    
+    //const geometry = new THREE.SphereGeometry( 1, 64, 64 );
+    const geometry = new THREE.BoxGeometry( 1, 1, 1 );
     var material = new THREE.MeshPhongMaterial( MeshMaterial );
     cube = new THREE.Mesh( geometry, material );
     cube.castShadow = true;
@@ -124,12 +128,6 @@ function Render() {
     cube.rotation.y += 0.01;
 
     raycaster.setFromCamera( mouse, camera );
-    //const intersection = raycaster.intersectObject( cube );
-    //if ( intersection.length > 0 ) {
-    //    intersection[0].object.material.color.set(1, 0, 0.5);
-    //}
-
+    cameraControl.update()
     renderer.render(scene, camera)
 }
-
-
