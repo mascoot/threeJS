@@ -26,7 +26,7 @@ function Init()
     camera.position.z = 5;
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0x000000 );
+    scene.background = new THREE.Color( 0.2, 0.2, 0.2 );
 
     //lights
     const ambient = new THREE.HemisphereLight( 0xffffff, 0xbfd4d2, 3 );
@@ -62,6 +62,7 @@ function Init()
     let PlaneMeshMaterial = {
         color: 0xaaaaaa,
         reflectivity: 0.0,
+        side: THREE.DoubleSide,
     }
     const plane = new THREE.Mesh(
         new THREE.PlaneGeometry(),
@@ -87,6 +88,7 @@ function Init()
     scene.add( cube );
 
     editorGUI = new EditorGUI(scene);
+
     //Add Event Listeners
     document.addEventListener( 'mousemove', onMouseMove )
     window.addEventListener('resize', onWindowResize, false)
